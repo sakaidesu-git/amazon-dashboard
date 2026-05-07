@@ -8,6 +8,11 @@ app = Flask(__name__)
 line_bot_api = LineBotApi(os.environ["LINE_ACCESS_TOKEN"])
 handler = WebhookHandler(os.environ["LINE_CHANNEL_SECRET"])
 
+# ←←← ここに追加（UptimeRobot が叩く GET / 用）
+@app.route("/", methods=['GET'])
+def home():
+    return "OK", 200
+
 @app.route("/callback", methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']
